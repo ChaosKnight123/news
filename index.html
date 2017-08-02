@@ -1,31 +1,179 @@
-<!DOCTYPE html>
 <html>
-	<head>
-		<title>Hank Quinlan, Horrible Cop</title>
-		<!-- link to main stylesheet -->
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-	</head>
-	<body>
-		<nav>
-    		<ul>
-        		<li><a href="/">Home</a></li>
-	        	<li><a href="/about">About</a></li>
-        		<li><a href="/cv">CV</a></li>
-        		<li><a href="/blog">Blog</a></li>
-    		</ul>
-		</nav>
-		<div class="container">
-    		<div class="blurb">
-        		<h1>Hi there, I'm Hank Quinlan!</h1>
-				<p>I'm best known as the horrible cop from <em>A Touch of Evil</em> Don't trust me. <a href="/about">Read more about my life...</a></p>
-    		</div><!-- /.blurb -->
-		</div><!-- /.container -->
-		<footer>
-    		<ul>
-        		<li><a href="mailto:hankquinlanhub@gmail.com">email</a></li>
-        		<li><a href="https://github.com/hankquinlan">github.com/hankquinlan</a></li>
-			</ul>
-		</footer>
-	</body>
+<head>
+</head>
+<body>
+<canvas id="myCanvas" width="500px" height="500px"></canvas>
+
+<script type="text/javascript">
+var canvas=document.getElementById('myCanvas');
+var ctx=canvas.getContext('2d');
+var score =0;
+var lives =3;
+var brickWidth = 75;
+var brickHeight = 20;
+ballX = 220;
+ballY = 480;
+ballSpeedX = 15;
+ballSpeedY = 8;
+var paddle = 200;
+var rightPress = false;
+var leftPress = false;
+var brick = [];
+var c;
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+function keyDownHandler(e)
+{
+	if (e.keyCode ==39)
+	{
+		rightPress = true; 
+	}
+	else if (e.keyCode ==37)
+	{
+		leftPress = true; 
+	}
+}
+function keyUpHandler(e)
+{
+	if (e.keyCode ==39)
+	{
+		rightPress = false; 
+	}
+	else if (e.keyCode ==37)
+	{
+		leftPress = false; 
+	}
+}
+	for (c=0 ; c < 5; c++)
+	{
+		brick[c] = [];
+	
+	for (r=0; r< 3; r++)
+	{
+		brick[c][r] = {x:0 , y:0 , status:1};
+	}
+	}
+	
+function ballReset()
+{
+	ballX = 220;
+	ballY = 480;
+	ballSpeedY = -ballSpeedY;
+}
+function movement()
+{
+	ballX = ballX + ballSpeedX;
+	ballY = ballY + ballSpeedY;
+if (rightPress && paddle+100<canvas.width)
+paddle+=8;
+else if (leftPress && paddle >0)
+{
+	paddle-=8;
+}
+ if(ballX < 10) {
+ ballSpeedX = -ballSpeedX;
+ }
+ 
+ 
+ if(ballX > canvas.width-10) {
+ 
+ ballSpeedX = -ballSpeedX; 
+ }
+ if(ballY < 10) {
+  ballSpeedY = -ballSpeedY;
+ }
+ if(ballY > canvas.height-20) {
+	if (ballX > paddle && ballX < paddle+100)
+	{
+	var deltaX = ballX-(paddle+50);
+ ballSpeedX = deltaX * 0.35;
+  ballSpeedY = -ballSpeedY; 
+  }
+  else 
+  {
+  lives--;
+  ballReset();
+  paddle=200;
+  
+  if (lives==0)
+	{
+		alert('You lose. Noob');
+		document.location.reload();
+	}
+ } 
+ }
+}
+function collision()
+{
+	for (c=0 ; c < 5; c++){
+	for (r=0 ; r < 3; r++){
+	
+	var b = brick[c][r];
+	if (b.status==1)
+	{
+	if (ballX > b.x && ballX < b.x+100 && ballY > b.y && ballY < b.y+10)
+	{
+	score++;
+	ballSpeedY = -ballSpeedY;
+	b.status=0;
+	
+	if (score==15)
+	{
+		alert('You win. Now delete this game. It is daed gaem');
+		document.location.reload();
+	}
+	}
+	}
+}
+}
+}
+function drawBrick()
+{
+	for (c=0 ; c < 5; c++){
+	for (r=0 ; r < 3; r++)	
+	{
+	if (brick[c][r].status==1)
+	{
+		var brickX = (c*(brickWidth+10)+30);
+		var brickY = (r*(brickHeight+10)+30);
+		brick[c][r].x =brickX;
+		brick[c][r].y =brickY;
+		ctx.beginPath();
+		ctx.fillRect(brickX,brickY,brickWidth,brickHeight);
+		ctx.fillStyle = "white";
+		ctx.closePath();
+	}
+	}
+}
+}
+function drawBall()
+{
+	ctx.beginPath();
+	ctx.arc(ballX,ballY,10,0,Math.PI*2);
+	ctx.fillStyle="red";
+	ctx.fill();
+	ctx.closePath();
+}
+function drawPaddle()
+{
+	ctx.beginPath();
+	ctx.fillStyle='rgba(25,255,255,0.75)';
+	ctx.fillRect(paddle,490,100,10);
+	
+}
+window.onload=setInterval(function drawAll()
+{
+ctx.fillStyle="black";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle='white';
+ctx.fillText('score:'+score,20,20);
+ctx.fillText('lives:'+lives,60,20);
+drawBrick();
+drawBall();
+drawPaddle();
+movement();
+collision();
+},30);
+</script>
+</body>
 </html>
-4
