@@ -1,9 +1,41 @@
-<html>
-<head>
-</head>
-<body>
-<canvas id="myCanvas" width="500px" height="500px"></canvas>
 
+<html>
+	<head>
+	</head>
+	<body background="http://7wallpapers.net/wp-content/uploads/2_Dota2-Shadow-Fiend.jpg">
+<div>	
+	<table>
+			<tr>
+				<th>		</th>
+				<th>Thứ hai</th>
+				<th>Thứ ba</th>
+				<th>Thứ tư</th>
+				<th>Thứ năm</th>
+				<th>Thứ sáu</th>
+				<th>Thứ bảy</th>
+			</tr>
+			<tr>
+				<td><h3>Tiết 123</h3></td>
+				<td>Kỹ thuật vi xử lý (402A3B)</td>
+				<td>Điện tử công suất (402A3B)</td>
+				<td>Cung cấp mạng điện hạ áp (401A3B)</td>
+				<td>			</td>
+				<td>Tiếng Anh B1 (501A3B)</td>
+			</tr>
+			<tr>
+				<td><h3>Tiết 456</h3></td>
+				<td>Hệ thống điều khiển tuyến tính (402A3B)</td>
+				<td>Tiếng Anh B1 (402A3B)</td>
+				<td>Tín hiệu và hệ thống (401A3B)</td>
+				<td>			</td>
+				<td>			</td>
+				<td>Giáo dục thể chất</td>			
+			</tr>
+		</table>
+		</br>
+		<canvas id="myCanvas" width="500px" height="500px"></canvas>
+
+</div>
 <script type="text/javascript">
 var canvas=document.getElementById('myCanvas');
 var ctx=canvas.getContext('2d');
@@ -44,6 +76,7 @@ function keyUpHandler(e)
 		leftPress = false; 
 	}
 }
+
 	for (c=0 ; c < 5; c++)
 	{
 		brick[c] = [];
@@ -60,6 +93,7 @@ function ballReset()
 	ballY = 480;
 	ballSpeedY = -ballSpeedY;
 }
+
 function movement()
 {
 	ballX = ballX + ballSpeedX;
@@ -79,6 +113,7 @@ else if (leftPress && paddle >0)
  
  ballSpeedX = -ballSpeedX; 
  }
+
  if(ballY < 10) {
   ballSpeedY = -ballSpeedY;
  }
@@ -103,6 +138,7 @@ else if (leftPress && paddle >0)
  } 
  }
 }
+
 function collision()
 {
 	for (c=0 ; c < 5; c++){
@@ -126,6 +162,7 @@ function collision()
 	}
 }
 }
+
 }
 function drawBrick()
 {
@@ -146,6 +183,7 @@ function drawBrick()
 	}
 }
 }
+
 function drawBall()
 {
 	ctx.beginPath();
@@ -163,6 +201,10 @@ function drawPaddle()
 }
 window.onload=setInterval(function drawAll()
 {
+ctx.globalAlpha=1;
+ctx.strokeStyle="white";
+ctx.strokeRect(0,0,canvas.width,canvas.height);
+
 ctx.fillStyle="black";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle='white';
@@ -175,5 +217,43 @@ movement();
 collision();
 },30);
 </script>
-</body>
+
+<style type="text/css">
+canvas
+{
+	border: thin white solid;
+
+}
+body
+{
+	background-position: center;
+	background-attachment: fixed;
+	
+}
+div 
+{
+	background-color: black;
+	opacity: 0.8;
+}
+table
+{
+	font-family: arial;
+	width: 100%;
+	border-collapse: collapse;
+	background-color: white;
+	opacity: 1;
+}
+th,td
+{	
+	text-align: center;
+	border: 1px solid #dddddd;
+	padding: 8px;
+}
+tr:nth-child(1)
+{
+	background-color: gray;
+}
+</style>
+
+	</body>
 </html>
