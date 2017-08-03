@@ -1,4 +1,3 @@
-
 <html>
 	<head>
 	</head>
@@ -33,7 +32,7 @@
 			</tr>
 		</table>
 		</br>
-		<canvas id="myCanvas" width="500px" height="500px"></canvas>
+		<canvas id="myCanvas" width="500px" height="480px"></canvas>
 
 </div>
 <script type="text/javascript">
@@ -44,7 +43,7 @@ var lives =3;
 var brickWidth = 75;
 var brickHeight = 20;
 ballX = 220;
-ballY = 480;
+ballY = 460;
 ballSpeedX = 15;
 ballSpeedY = 8;
 var paddle = 200;
@@ -90,7 +89,7 @@ function keyUpHandler(e)
 function ballReset()
 {
 	ballX = 220;
-	ballY = 480;
+	ballY = 460;
 	ballSpeedY = -ballSpeedY;
 }
 
@@ -196,7 +195,7 @@ function drawPaddle()
 {
 	ctx.beginPath();
 	ctx.fillStyle='rgba(25,255,255,0.75)';
-	ctx.fillRect(paddle,490,100,10);
+	ctx.fillRect(paddle,470,100,10);
 	
 }
 window.onload=setInterval(function drawAll()
