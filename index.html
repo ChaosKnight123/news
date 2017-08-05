@@ -91,9 +91,14 @@ $("#table1").hide();
 				  $("#table6").hide();  
 				    $("#table7").show();		
 				})}
+	
 </script>
 
 	<div>	
+	<input type="image" src = "chen.ico" width = "50px" height = "50px">
+	<canvas id = "cv" width = "500px" height = "50px"></canvas>
+	<script>
+	</script>
 	<table id="table1">
 			<tr>
 				<th>		</th>
@@ -386,14 +391,131 @@ $("#table1").hide();
 			</tr>
 		</table>
 		</br>
-		<canvas id="myCanvas" width="500px" height="480px"></canvas>
+				<form>
+<fieldset>
+<legend><h3 style="color:white">
+Chaos Knight say:</h3>
+</legend>
+<input type="image" src = "chaos.png" width='150px' height = '150px'></br></br>
+<select id = "myOptions">
+	  <option>Choose me!</option>
+  <option value ='1'>7-8 to 28-8</option>
+  <option>29-8 to 4-9</option>
+  <option>5-9 to 2-10</option>
+  <option>3-10 to 14-10</option>
+    <option>15-10 to 30-10</option>
+	  <option>31-10 to 11-11</option>
+	  <option>After 12</option>
+</select></br></br>
+<button onclick = 'back()' >Back to present</button>
+</fieldset>
+</form>
 
+		<canvas id="myCanvas" width="500px" height="480px"></canvas>
 </div>
+<script>
+
+			$('#myOptions').change(function() {
+    var val = $("#myOptions option:selected").text();
+	var cv = document.getElementById('cv');
+	var c = cv.getContext('2d');
+	c.fillStyle='white';
+	c.moveTo(20,0);
+	c.lineTo(500,0);
+	c.lineTo(500,50);
+	c.lineTo(0,50);
+	c.lineTo(20,40);
+	c.lineTo(20,0);
+	
+	c.fill();
+	c.fillStyle="black";
+	c.font = "20px Arial";
+	
+		c.fillText("Your schedule from "+val,30,30);
+
+
+		if (val == "7-8 to 28-8")
+  {
+		$("#table1").show();
+		  $("#table2").hide();
+		    $("#table3").hide();
+			  $("#table4").hide();
+			    $("#table5").hide();
+				  $("#table6").hide();  
+				    $("#table7").hide();		
+					
+  }
+  else if (val == "29-8 to 4-9")
+  {
+	$("#table1").hide();
+		  $("#table2").show();
+		    $("#table3").hide();
+			  $("#table4").hide();
+			    $("#table5").hide();
+				  $("#table6").hide();  
+				    $("#table7").hide();		}
+
+  
+    else if (val == "5-9 to 2-10")
+  {
+	$("#table1").hide();
+		  $("#table2").hide();
+		    $("#table3").show();
+			  $("#table4").hide();
+			    $("#table5").hide();
+				  $("#table6").hide();  
+				    $("#table7").hide();	
+  }
+    else if (val == "3-10 to 14-10")
+  {
+	$("#table1").hide();
+		  $("#table2").hide();
+		    $("#table3").hide();
+			  $("#table4").show();
+			    $("#table5").hide();
+				  $("#table6").hide();  
+				    $("#table7").hide();	
+  }
+    else if (val == "15-10 to 30-10")
+  {
+	$("#table1").hide();
+		  $("#table2").hide();
+		    $("#table3").hide();
+			  $("#table4").hide();
+			    $("#table5").show();
+				  $("#table6").hide();  
+				    $("#table7").hide();	
+  }
+    else if (val == "31-10 to 11-11")
+  {
+	$("#table1").hide();
+		  $("#table2").hide();
+		    $("#table3").hide();
+			  $("#table4").hide();
+			    $("#table5").hide();
+				  $("#table6").show();  
+				    $("#table7").hide();	
+  }
+    else if (val == "After 12")
+  {
+	$("#table1").hide();
+		  $("#table2").hide();
+		    $("#table3").hide();
+			  $("#table4").hide();
+			    $("#table5").hide();
+				  $("#table6").hide();  
+				    $("#table7").show();	
+  }
+ 
+
+});
+</script>
 <script type="text/javascript">
+var showWinner= false;
 var canvas=document.getElementById('myCanvas');
 var ctx=canvas.getContext('2d');
 var score =0;
-var lives =3;
+var lives ="infinity";
 var brickWidth = 75;
 var brickHeight = 20;
 ballX = 220;
@@ -479,18 +601,19 @@ else if (leftPress && paddle >0)
   }
   else 
   {
-  lives--;
   ballReset();
   paddle=200;
   
-  if (lives==0)
-	{
-		document.location.reload();
-	}
  } 
  }
 }
-
+function stop()
+{
+	ballX=0;
+		ballY=0;
+	ballSpeedY=0;
+	ballSpeedX=0;
+}
 function collision()
 {
 	for (c=0 ; c < 5; c++){
@@ -507,7 +630,8 @@ function collision()
 	
 	if (score==15)
 	{
-document.location.reload();
+	alert('You win');
+	document.location.reload();
 	}
 	}
 	}
@@ -552,6 +676,7 @@ function drawPaddle()
 }
 window.onload=setInterval(function drawAll()
 {
+
 ctx.globalAlpha=1;
 ctx.strokeStyle="white";
 ctx.strokeRect(0,0,canvas.width,canvas.height);
@@ -559,8 +684,8 @@ ctx.strokeRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="black";
 ctx.fillRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle='white';
-ctx.fillText('score:'+score,20,20);
-ctx.fillText('lives:'+lives,60,20);
+ctx.fillText('score: '+score,20,20);
+ctx.fillText('lives: '+lives,60,20);
 drawBrick();
 drawBall();
 drawPaddle();
@@ -568,11 +693,13 @@ movement();
 collision();
 },30);
 </script>
-
 <style type="text/css">
 canvas
 {
 	border: thin white solid;
+	margin-left: 100px;
+		margin-right: 100px;
+
 
 }
 body
@@ -585,6 +712,8 @@ div
 {
 	background-color: black;
 	opacity: 0.8;
+	margin-left: 250px;
+	margin-right: 250px;
 }
 table
 {
@@ -603,6 +732,15 @@ th,td
 tr:nth-child(1)
 {
 	background-color: gray;
+}
+form
+{
+	margin-left: 300px;
+		margin-right: 300px;
+}
+#cv
+{
+	border: black;
 }
 </style>
 
